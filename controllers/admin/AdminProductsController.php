@@ -871,6 +871,7 @@ class AdminProductsControllerCore extends AdminController
                     if ($val) {
                         $product->addFeaturesToDB($match[1], $val);
                     } else {
+                        dump($this->checkFeatures($languages, $match[1]));
                         if ($default_value = $this->checkFeatures($languages, $match[1])) {
                             $id_value = $product->addFeaturesToDB($match[1], 0, 1);
                             foreach ($languages as $language) {
