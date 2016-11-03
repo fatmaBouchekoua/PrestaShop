@@ -621,9 +621,13 @@ class ProductPresenter
                 $presentedProduct
             );
         }
-        $presentedProduct = $this->addFeaturesToDisplay(
-            $presentedProduct
-        );
+
+        // if product has features
+        if(isset($presentedProduct['features'])){
+            $presentedProduct = $this->addFeaturesToDisplay(
+                $presentedProduct
+            );
+        }
 
         return $presentedProduct;
     }
