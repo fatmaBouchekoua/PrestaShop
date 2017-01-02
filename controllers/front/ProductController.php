@@ -591,11 +591,43 @@ class ProductControllerCore extends ProductPresentingFrontControllerCore
                 $this->combinations[$id_product_attribute]['list'] = $attribute_list;
             }
 
+            $tableau= array();
+            $i = 0;
+            foreach ($groups as $key => $group){
+                if ($group['group_type'] === 'select'){
+                    foreach ($group['attributes'] as $attri){
+                        if(isset($tableau[$i]['taille']) && $tableau[$i]['taille'] !== $attri['name']){
+                            $i++;
+                            $tableau[$i]['taille'] = $attri['name'];
+                        } else {
+                            $tableau[$i]['taille'] = $attri['name'];
+                        }
+                    }
+
+                } elseif ($group['group_type'] === 'color'){
+                    foreach ($this->combinations as $combination){
+                        foreach ($combination['attributes_values'] as $value){
+                            foreach ($tableau as $key => $tab) {
+                                if ($tab['taille'] === $value){
+                                    if(isset($tableau[$key]['color'])){
+                                        $tableau[$key]['color'] .=','. $combination['attributes_values'][3];
+                                    } else {
+                                        $tableau[$key]['color'] = $combination['attributes_values'][3];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
             $this->context->smarty->assign(array(
                 'groups' => $groups,
                 'colors' => (count($colors)) ? $colors : false,
                 'combinations' => $this->combinations,
                 'combinationImages' => $combination_images,
+                'combination_colors' => $tableau,
             ));
         } else {
             $this->context->smarty->assign(array(
@@ -603,6 +635,7 @@ class ProductControllerCore extends ProductPresentingFrontControllerCore
                 'colors' => false,
                 'combinations' => array(),
                 'combinationImages' => array(),
+                'combination_colors' => array(),
             ));
         }
     }
