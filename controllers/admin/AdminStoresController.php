@@ -338,8 +338,8 @@ class AdminStoresControllerCore extends AdminController
                     $_POST[$kp] = trim($vp);
                 }
                 if (isset($_POST['hours']) && 'hours' === $kp) {
-                    foreach ($vp as $day => $value) {
-                        $_POST['hours'][$day] = is_array($value) ? array_map('trim', $_POST['hours'][$day]) : $_POST['hours'][$day] = trim($value);
+                    foreach ($_POST['hours'] as $day => $value) {
+                        $_POST['hours'][$day] = is_array($value) ? array_map('trim', $_POST['hours'][$day]) : trim($value);
                     }
                 }
             }
