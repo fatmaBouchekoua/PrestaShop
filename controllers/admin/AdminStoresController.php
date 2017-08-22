@@ -330,7 +330,7 @@ class AdminStoresControllerCore extends AdminController
 
     public function postProcess()
     {
-        if (isset($_POST['submitAdd'.$this->table])) {
+        if (isset($_POST['submitAdd'.$this->table])){
             $langs = Language::getLanguages();
             /* Cleaning fields */
             foreach ($_POST as $kp => $vp) {
