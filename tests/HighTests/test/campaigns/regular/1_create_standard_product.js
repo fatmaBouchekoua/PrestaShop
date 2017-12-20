@@ -5,12 +5,15 @@ const {SearchProductPage} = require('../../selectors/FO/search_product_page');
 var data = require('./../../datas/product-data');
 
 scenario('Create Standard Product', client => {
+
+  scenario('Open the browser and connect to the BO', client => {
   test('should open browser', () => client.open());
   test('should log in successfully in BO', () => client.signInBO(AccessPageBO));
-  test('should go to "Catalog"', () => client.waitForExistAndClick(AddProductPage.products_subtab));
-  test('should click on "NEW PRODUCT"', () => client.waitForExistAndClick(AddProductPage.new_product_button));
+  }, 'product/product');
 
-  scenario('Edit Basic settings', client => {
+  scenario('Add new product and edit Basic settings', client => {
+    test('should go to "Catalog"', () => client.waitForExistAndClick(AddProductPage.products_subtab));
+    test('should click on "NEW PRODUCT"', () => client.waitForExistAndClick(AddProductPage.new_product_button));
     test('should set the "product name"', () => client.waitAndSetValue(AddProductPage.product_name_input, 'Robe' + date_time));
     test('should set the "Quantity" of product', () => client.waitAndSetValue(AddProductPage.quantity_shortcut_input, "10"));
     test('should upload the first product picture', () => client.uploadPicture('1.png', AddProductPage.picture));
@@ -22,6 +25,9 @@ scenario('Create Standard Product', client => {
   scenario('Save Product', client => {
     test('should click on "SAVE"', () => client.waitForExistAndClick(AddProductPage.save_product_button));
     test('should check that the success alert message is well displayed', () => client.waitForExistAndClick(AddProductPage.close_validation_button));
+  }, 'product/product');
+
+  scenario('Logout from Back Office', client => {
     test('should logout successfully from the Back Office', () => client.signOutBO());
   }, 'product/product');
 
