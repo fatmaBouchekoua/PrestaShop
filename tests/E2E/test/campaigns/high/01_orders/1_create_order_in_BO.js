@@ -1,22 +1,11 @@
-const {AccessPageBO} = require('../../../selectors/BO/access_page');
 const {OrderPage} = require('../../../selectors/BO/order');
 const {CreateOrder} = require('../../../selectors/BO/order');
-const {OnBoarding} = require('../../../selectors/BO/onboarding.js');
+const common = require('../common_scenarios');
 let promise = Promise.resolve();
 
 scenario('Create order in BO', () => {
-  scenario('Open the browser and connect to the BO', client => {
-    test('should open the browser', () => client.open());
-    test('should log in successfully in BO', () => client.signInBO(AccessPageBO));
-  }, 'order');
-
-  scenario('Close the onboarding modal if exist ', client => {
-    test('should close the onboarding modal if exist', () => {
-      return promise
-        .then(() => client.isVisible(OnBoarding.welcome_modal))
-        .then(() => client.closeBoarding(OnBoarding.popup_close_button))
-    });
-  }, 'order');
+  common.signInBO();
+  common.closeOnboarding();
 
   scenario('Create order in BO', client => {
     test('should go to orders list', () => client.goToSubtabMenuPage(OrderPage.orders_subtab, OrderPage.order_submenu));
@@ -75,6 +64,8 @@ scenario('Create order in BO', () => {
       test('should check that the "delivery invoice product information" is : Blouse - Size : S- Color : White', () => client.checkDocument(global.downloadsFolderPath, global.invoiceFileName, "Blouse - Size : S- Color : White"));
       test('should check that the "delivery invoice product carrier" is : My carrier"', () => client.checkDocument(global.downloadsFolderPath, global.invoiceFileName, "My carrier"));
     }, 'order');
+    
+    common.signOutBO();
   }, 'order');
 }, 'order', true);
 

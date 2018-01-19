@@ -1,14 +1,18 @@
 const {AddProductPage} = require('../../../selectors/BO/add_product_page');
 const {AccessPageBO} = require('../../../selectors/BO/access_page');
 var data = require('./../../../datas/product-data');
+const common = require('../common_scenarios');
 let promise = Promise.resolve();
 
-scenario('Create virtual Product', client => {
-    test('should open browser', () => client.open());
-    test('should log in successfully in BO', () => client.signInBO(AccessPageBO));
+scenario('Create virtual Product', () => {
+  common.signInBO();
+  common.closeOnboarding();
+
+  scenario('Add new product', client => {
     test('should go to "Catalog"', () => client.waitForExistAndClick(AddProductPage.products_subtab));
     test('should click on "NEW PRODUCT"', () => client.waitForExistAndClick(AddProductPage.new_product_button));
-
+  }, 'product/product');
+  
     scenario('Edit the Basic settings', client => {
         test('should set the "product name"', () => client.waitAndSetValue(AddProductPage.product_name_input, data.virtual.name + date_time));
         test('should select the "virtual product"', () => client.waitAndSelectByValue(AddProductPage.product_type, 2));

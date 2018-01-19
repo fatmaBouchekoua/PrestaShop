@@ -1,13 +1,18 @@
 const {AddProductPage} = require('../../../selectors/BO/add_product_page');
 const {AccessPageBO} = require('../../../selectors/BO/access_page');
 var data = require('./../../../datas/product-data');
+const common = require('../common_scenarios');
 let promise = Promise.resolve();
 
-scenario('Create Standard Product', client => {
-  test('should open browser', () => client.open());
-  test('should log in successfully in BO', () => client.signInBO(AccessPageBO));
-  test('should go to "Catalog"', () => client.waitForExistAndClick(AddProductPage.products_subtab));
-  test('should click on "NEW PRODUCT"', () => client.waitForExistAndClick(AddProductPage.new_product_button));
+scenario('Create Standard Product', () => {
+  common.signInBO();
+  common.closeOnboarding();
+
+  scenario('Check default product sot and add a new product', client => {
+    test('should go to "Catalog"', () => client.waitForExistAndClick(AddProductPage.products_subtab));
+    test('should check the default product sort', () => client.getElementID());
+    test('should click on "NEW PRODUCT"', () => client.waitForExistAndClick(AddProductPage.new_product_button));
+  }, 'product/product');
 
   scenario('Edit Basic settings', client => {
     test('should set the "product name"', () => client.waitAndSetValue(AddProductPage.product_name_input, data.standard.name + date_time));
@@ -102,8 +107,9 @@ scenario('Create Standard Product', client => {
   scenario('Save Product', client => {
     test('should click on "SAVE"', () => client.waitForExistAndClick(AddProductPage.save_product_button));
     test('should check that the success alert message is well displayed', () => client.waitForExistAndClick(AddProductPage.close_validation_button));
-    test('should logout successfully from the Back Office', () => client.signOutBO());
   }, 'product/product');
+
+  common.signOutBO();
 
 }, 'product/product', true);
 

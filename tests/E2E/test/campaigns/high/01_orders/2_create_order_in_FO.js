@@ -1,16 +1,11 @@
-const {AccessPageFO} = require('../../../selectors/FO/access_page');
 const {productPage}= require('../../../selectors/FO/product_page');
 const {CheckoutOrderPage}= require('../../../selectors/FO/order_page');
 const {OrderPage} = require('../../../selectors/BO/order');
-const {AccessPageBO} = require('../../../selectors/BO/access_page');
+const common = require('../common_scenarios');
 let promise = Promise.resolve();
 
 scenario('Create order in FO', () => {
-
-    scenario('Open the browser and connect to the FO', client => {
-        test('should open the browser', () => client.open());
-        test('should sign in FO', () => client.signInFO(AccessPageFO));
-    }, 'order');
+    common.signInFO();
 
     scenario('Create order in FO', client => {
         test('should change the FO language to english', () => client.changeLanguage());
@@ -38,14 +33,12 @@ scenario('Create order in FO', () => {
                 .then(() => client.getTextInVar(CheckoutOrderPage.shipping_method, "method", true))
                 .then(() => client.getTextInVar(CheckoutOrderPage.order_shipping_prince_value, "shipping_price"))
         });
-        test('should logout successfully from the Front Office', () => client.signOutFO(AccessPageFO));
+        common.signOutFO();
     }, 'order', true);
 
   scenario('Check the created order in BO', () => {
-    scenario('Open the browser and connect to the BO', client => {
-      test('should open the browser', () => client.open());
-      test('should log in successfully in Back Office', () => client.signInBO(AccessPageBO));
-    }, 'order');
+    common.signInBO();
+    common.closeOnboarding();
 
     scenario('Check the created order in BO', client => {
       test('should go to "Orders" page', () => client.goToSubtabMenuPage(OrderPage.orders_subtab, OrderPage.order_submenu));
@@ -67,4 +60,6 @@ scenario('Create order in FO', () => {
       test('should check shipping method ', () => client.checkTextValue(OrderPage.shipping_method, global.tab["method"].split('\n')[0], 'contain'));
     }, "order");
   }, "order");
+  common.signOutBO();
+
 }, 'order', true);

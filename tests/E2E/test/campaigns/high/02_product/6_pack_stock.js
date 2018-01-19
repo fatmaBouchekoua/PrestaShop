@@ -1,5 +1,3 @@
-const {AccessPageFO} = require('../../../selectors/FO/access_page');
-const {AccessPageBO} = require('../../../selectors/BO/access_page');
 const {ShopParametre} = require('../../../selectors/BO/shopParameters/');
 const {ProductSettings} = require('../../../selectors/BO/shopParameters/product_settings');
 const {productPage}= require('../../../selectors/FO/product_page');
@@ -7,6 +5,7 @@ const {CheckoutOrderPage}= require('../../../selectors/FO/order_page');
 const {SearchProductPage} = require('../../../selectors/FO/search_product_page');
 const {AddProductPage} = require('../../../selectors/BO/add_product_page');
 const common_scenarios = require('../02_product/product');
+const common = require('../common_scenarios');
 
 var productData = [{
   name: 'A',
@@ -25,11 +24,9 @@ var productData = [{
   }
 }];
 
-scenario('Create standard product "A" and pack product "B"', client => {
-  scenario('Login in the Back Office', client => {
-    test('should open the browser', () => client.open());
-    test('should login successfully in the Back Office', () => client.signInBO(AccessPageBO));
-  }, 'product/product');
+scenario('Create standard product "A" and pack product "B"', () => {
+  common.signInBO();
+  common.closeOnboarding();
   scenario('Change configuration of "Default pack stock management" and "Allow ordering of out-of-stock products"', client => {
     test('Should go to "Product settings" page', () => client.goToSubtabMenuPage(ShopParametre.menu_button, ProductSettings.menu));
     test('Should click on "NO" button to disable ordering of out-of-stock products', () => client.scrollWaitForExistAndClick(ProductSettings.disableOrderOutOfStock_button));
@@ -40,11 +37,8 @@ scenario('Create standard product "A" and pack product "B"', client => {
   common_scenarios.createProduct(AddProductPage, productData[1]);
 }, 'product/product', true);
 
-scenario('Check "Orders"', client => {
-  scenario('Login in the Back Office', client => {
-    test('should open the browser', () => client.open());
-    test('should login successfully in the Front Office', () => client.signInFO(AccessPageFO));
-  }, 'product/product');
+scenario('Check "Orders"', () => {
+  common.signInFO();
   scenario('Create order with 50 item of product A', client => {
     test('should change the FO language to english', () => client.changeLanguage());
     test('should search for the product "A"', () => client.searchByValue(SearchProductPage.search_input, SearchProductPage.search_button, productData[0]['name'] + date_time));
