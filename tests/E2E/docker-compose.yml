@@ -10,7 +10,7 @@ services:
       - "prestashop"
       - "selenium-chrome"
     working_dir: /tmp
-    command: ["/tmp/wait-for-it.sh", "--timeout=300", "--strict", "prestashop-web:80", "--", "npm test", "--URL=prestashop-web"]
+    command: ["/tmp/wait-for-it.sh", "--timeout=300", "--strict", "prestashop-web:80", "--", "npm test", "--URL=prestashop-web", "--MODULE=ps_legalcompliance"]
     volumes:
       - ./screenshots/:/home/test/screenshots/
       - downloads:/home/seluser/Downloads
