@@ -80,5 +80,14 @@ module.exports = {
       test('should go to the product page', () => client.waitForExistAndClick(SearchProductPage.product_result_name));
       test('should Check that the attribute has been deleted in the Front Office', () => client.checkDeleted(SearchProductPage.attribute_name));
     }, 'attribute_and_feature');
+  },
+  deleteAttributeBulkActions(data) {
+    scenario('Delete the created "Attribute" using the bulk actions', client => {
+      test('should go to "Attributes & Features" page', () => client.goToSubtabMenuPage(Menu.Sell.Catalog.catalog_menu, Menu.Sell.Catalog.attributes_features_submenu));
+      test('should search for the created attribute', () => client.searchByValue(AttributeSubMenu.search_input, AttributeSubMenu.search_button, data.name + date_time));
+      test('should select the created attribute', () => client.waitForExistAndClick(AttributeSubMenu.attribute_checkbox));
+      test('should delete the created attribute', () => client.clickOnAction(AttributeSubMenu.bulk_actions, AttributeSubMenu.delete_bulk_action, 'delete'));
+      test('should verify the appearance of the green validation', () => client.checkTextValue(CatalogPage.success_panel, '×\nThe selection has been successfully deleted.'));
+    }, 'attribute_and_feature');
   }
 };

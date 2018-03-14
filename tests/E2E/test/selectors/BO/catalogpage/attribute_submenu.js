@@ -19,7 +19,10 @@ module.exports = {
     delete_attribute_button: '//*[@id="table-attribute_group"]/tbody/tr/td[6]/div/div/ul/li[3]/a',
     update_button: '//*[@id="table-attribute_group"]/tbody/tr/td[6]/div/div/ul/li[1]/a',
     update_value_button: '(//*[@id="table-attribute"]//a[@title="Edit"])[%POS]',
-    reset_button: '//*[@id="table-attribute_group"]//button[@name="submitResetattribute_group"]'
+    reset_button: '//*[@id="table-attribute_group"]//button[@name="submitResetattribute_group"]',
+    attribute_checkbox: '//*[@id="table-attribute_group"]//input[@type="checkbox"]',
+    bulk_actions: '//*[@id="bulk_action_menu_attribute_group"]',
+    delete_bulk_action: '//*[@id="form-attribute_group"]//div[contains(@class,"bulk-actions")]//li[4]/a',
   }
 
 };
