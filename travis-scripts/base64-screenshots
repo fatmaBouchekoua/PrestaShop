@@ -9,7 +9,7 @@
 #  echo "data:image/png;base64,$(base64 -w 0 $f)"
 #done
 
-FILES=$TRAVIS_BUILD_DIR/tests/E2E/screenshots/*
+FILES=$TRAVIS_BUILD_DIR/tests/E2E/test/screenshots/*
 echo "--- Displaying content of E2E error screenshots\n"
 for f in $FILES
 do
