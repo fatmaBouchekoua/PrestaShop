@@ -5,6 +5,9 @@ const {OnBoarding} = require('../../selectors/BO/onboarding.js');
 let promise = Promise.resolve();
 const module_common_scenarios = require('../common_scenarios/module');
 
+if (disable_addons) {
+  return;
+}
 scenario('Install and Uninstall Module from cross selling', () => {
   scenario('Login in the Back Office', client => {
     test('should open the browser', () => client.open());
