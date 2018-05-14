@@ -32,7 +32,7 @@ module.exports = {
     scenario('Create a new product in the Back Office', client => {
       test('should go to "Products" page', () => client.goToSubtabMenuPage(Menu.Sell.Catalog.catalog_menu, Menu.Sell.Catalog.products_submenu));
       test('should click on "New Product" button', () => client.waitForExistAndClick(AddProductPage.new_product_button));
-      test('should set the "Name" input', () => client.waitAndSetValue(AddProductPage.product_name_input, productData["name"] + date_time));
+      /*test('should set the "Name" input', () => client.waitAndSetValue(AddProductPage.product_name_input, productData["name"] + date_time));
       test('should set the "Reference" input', () => client.waitAndSetValue(AddProductPage.product_reference, productData["reference"]));
       test('should set the "Quantity" input', () => client.waitAndSetValue(AddProductPage.quantity_shortcut_input, productData["quantity"]));
       test('should set the "Price" input', () => client.setPrice(AddProductPage.priceTE_shortcut, productData["price"]));
@@ -107,7 +107,7 @@ module.exports = {
         });
         test('should click on "Save" button', () => client.waitForExistAndClick(AddProductPage.save_product_button, 2000));
         test('should verify the appearance of the green validation', () => client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.'));
-      }, 'product/product');
+      }, 'product/product');*/
 
     }, 'product/product');
 

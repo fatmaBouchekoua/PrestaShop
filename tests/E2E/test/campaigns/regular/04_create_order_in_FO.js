@@ -6,6 +6,7 @@ const {productPage} = require('../../selectors/FO/product_page');
 const {CheckoutOrderPage} = require('../../selectors/FO/order_page');
 let promise = Promise.resolve();
 
+/*
 scenario('Create order in the Front Office', () => {
   scenario('Open the browser and connect to the Front Office', client => {
     test('should open the browser', () => client.open());
@@ -75,3 +76,4 @@ scenario('Check the created order in the Back Office', () => {
     test('should check shipping method ', () => client.checkTextValue(OrderPage.shipping_method, global.tab["method"].split('\n')[0], 'contain'));
   }, "order");
 }, 'order', true);
+*/

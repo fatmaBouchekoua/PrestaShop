@@ -20,13 +20,13 @@ scenario('Create "Product"', () => {
     test('should login successfully in the Back Office', () => client.signInBO(AccessPageBO));
   }, 'common_client');
   common_scenarios.createProduct(AddProductPage, productData);
-  common_scenarios.checkProductBO(AddProductPage, productData);
+  //common_scenarios.checkProductBO(AddProductPage, productData);
   scenario('Logout from the Back Office', client => {
     test('should logout successfully from the Back Office', () => client.signOutBO());
   }, 'common_client');
 }, 'common_client', true);
 
-scenario('Check the created product in the Front Office', () => {
+/*scenario('Check the created product in the Front Office', () => {
   scenario('Login in the Front Office', client => {
     test('should open the browser', () => client.open());
     test('should login successfully in the Front Office', () => client.signInFO(AccessPageFO));
@@ -51,4 +51,4 @@ scenario('Check the created product in the Front Office', () => {
         .then(() => client.signOutFO(AccessPageFO))
     });
   }, 'product/product');
-}, 'product/product', true);
+}, 'product/product', true);*/
