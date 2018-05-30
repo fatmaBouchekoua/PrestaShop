@@ -11,6 +11,6 @@ echo "* Installing functional tests ...";
 cd $TRAVIS_BUILD_DIR/tests/E2E && npm install
 
 echo "* Running functional tests ...";
-path=regular/03_create_product.js npm run specific-test
-#npm test -- --MODULE=ps_legalcompliance
+#path=regular/03_create_product.js npm run specific-test
+npm test -- --MODULE=ps_legalcompliance
 exit $?
