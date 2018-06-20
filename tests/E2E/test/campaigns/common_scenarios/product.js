@@ -10,7 +10,7 @@ const {AddProductPage} = require('../../selectors/BO/add_product_page');
  *  quantity: 'product_quantity',
  *  price: 'product_price',
  *  image_name: 'picture_file_name',
- *  type: "product_type(standard, pack, virtual)",
+ *  type: "product_type(standard, pack, virtual,combination)",
  *  attribute: {
  *      name: 'attribute_name',
  *      variation_quantity: 'product_variation_quantity'
@@ -53,7 +53,9 @@ module.exports = {
           test('should select the variation', () => {
             if (productData.type === 'combination') {
               return promise
-                .then(() => client.createCombination(AddProductPage.combination_size_m, AddProductPage.combination_color_beige));
+                .then(() => client.createCombination(AddProductPage.combination_size_m, AddProductPage.combination_color_beige))
+                .then(() => client.createCombination(AddProductPage.combination_size_l, AddProductPage.combination_color_grey));
+
             } else {
               return promise
                 .then(() => client.waitAndSetValue(AddProductPage.variations_input, productData['attribute']['name'] + date_time + " : All"))

@@ -143,11 +143,17 @@ function initCommands(client) {
       .waitForExistAndClick(selector.logo_home_page);
   });
 
-  client.addCommand('switchWindow', function (id) {
+  client.addCommand('switchWindow', function (id, refresh, pause) {
     return client
       .getTabIds()
       .then(ids => client.switchTab(ids[id]))
-      .refresh();
+      .then(() => {
+        if (refresh) {
+          client.refresh();
+        } else {
+          client.pause(pause);
+        }
+      })
   });
 
   client.addCommand('isOpen', function (selector) {
@@ -161,6 +167,18 @@ function initCommands(client) {
           return global.isOpen = false;
         }
       });
+  });
+
+  client.addCommand('waitForExistAndMiddleClick', function (selector, timeout = 90000) {
+    return client
+      .waitForExist(selector, timeout)
+      .middleClick(selector);
+  });
+
+  client.addCommand('clearElementAndSetValue', function (selector, value, timeout) {
+    return client
+      .clearElement(selector, timeout)
+      .waitAndSetValue(selector, value, timeout);
   });
 
 }

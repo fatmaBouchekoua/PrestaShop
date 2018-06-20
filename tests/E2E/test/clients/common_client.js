@@ -65,8 +65,9 @@ class CommonClient {
               element.scrollIntoView();
             }, selector)
             .waitForVisibleAndClick(selector);
-        }})
-      .then(()=> this.client.pause(4000));
+        }
+      })
+      .then(() => this.client.pause(4000));
   }
 
   closeBoarding(selector) {
@@ -77,6 +78,18 @@ class CommonClient {
     } else {
       return this.client.pause(1000);
     }
+  }
+
+  waitForExistAndMiddleClick(selector, pause = 0, timeout = 90000) {
+    return this.client
+      .pause(pause)
+      .waitForExistAndMiddleClick(selector, timeout);
+  }
+
+  clearElementAndSetValue(selector, value, pause = 0, timeout = 90000) {
+    return this.client
+      .pause(pause)
+      .clearElementAndSetValue(selector, value, timeout);
   }
 
   isVisible(selector, pause = 0) {
@@ -183,8 +196,9 @@ class CommonClient {
     }
   }
 
-  getAttributeInVar(selector, attribute, globalVar, timeout = 90000) {
+  getAttributeInVar(selector, attribute, globalVar, pause = 0, timeout = 90000) {
     return this.client
+      .pause(pause)
       .waitForExist(selector, timeout)
       .then(() => this.client.getAttribute(selector, attribute))
       .then((variable) => global.tab[globalVar] = variable);
@@ -300,8 +314,8 @@ class CommonClient {
       .refresh();
   }
 
-  switchWindow(id) {
-    return this.client.switchWindow(id);
+  switchWindow(id, refresh = true, pause = 0) {
+    return this.client.switchWindow(id, refresh, pause);
   }
 
   isExisting(selector, pause = 0) {
@@ -433,6 +447,18 @@ class CommonClient {
     delete object[pos];
   }
 
+  setAttributeById(selector) {
+    return this.client
+      .execute(function (selector) {
+        document.getElementById(selector).style.display = 'none';
+      }, selector);
+  }
+
+  switchToFrameById(id, pause = 0) {
+    return this.client
+      .pause(pause)
+      .frame(id);
+  }
 }
 
 module.exports = CommonClient;

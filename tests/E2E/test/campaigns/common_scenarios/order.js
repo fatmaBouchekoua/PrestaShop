@@ -4,9 +4,48 @@ const {accountPage} = require('../../selectors/FO/add_account_page');
 const {OrderPage} = require('../../selectors/BO/order');
 const {Menu} = require('../../selectors/BO/menu.js');
 
+const {Customer} = require('../../selectors/BO/customers/customer');
+const {DiscountSubMenu} = require('../../selectors/BO/catalogpage/discount_submenu');
+const {CatalogPage} = require('../../selectors/BO/catalogpage/index');
+const {CreateOrder} = require('../../selectors/BO/order');
+const {Addresses} = require('../../selectors/BO/customers/addresses');
+
 let data = require('../../datas/customer_and_address_data');
 let promise = Promise.resolve();
 
+/****Example of customer data ****
+ * let customerData = {
+  *  first_name: 'demo',
+  *  last_name: 'demo',
+  *  email_address: 'demo@prestashop.com',
+  *  password: '123456789',
+  *  birthday:{
+  *      day:'18',
+  *      month:'12',
+  *      year:'1991'
+  *  }
+  * };
+ */
+
+/** Exemple of cart rule data
+ * var cartRuleData = {
+  *  name: 'promo',
+  *  description:'super promo',
+  *  total_available:10,
+  *  type: 'percent',
+  *  reduction: 10
+  * };
+ **/
+
+/** Exemple of address data updated
+ * var addressDataUpdated = {
+  *  name: 'promo',
+  *  description:'super promo',
+  *  total_available:10,
+  *  type: 'percent',
+  *  reduction: 10
+  * };
+ **/
 module.exports = {
   createOrderFO: function (authentication = "connected") {
     scenario('Create order in the Front Office', client => {
@@ -132,5 +171,90 @@ module.exports = {
       });
       test('should check shipping method', () => client.checkTextValue(OrderPage.shipping_method, global.tab["method"].split('\n')[0], 'contain'));
     }, "order");
+  },
+  createCustomer: function (customerData) {
+    scenario('Create "Customer"', client => {
+      test('should set the "First name" input', () => {
+        return promise
+          .then(() => client.switchToFrameById(1, 2000))
+          .then(() => client.waitAndSetValue(Customer.first_name_input, customerData.first_name))
+      });
+      test('should set the "Last name" input', () => client.waitAndSetValue(Customer.last_name_input, customerData.last_name));
+      test('should set the "Email" input', () => client.waitAndSetValue(Customer.email_address_input, date_time + customerData.email_address));
+      test('should set the "Password" input', () => client.waitAndSetValue(Customer.password_input, customerData.password));
+      test('should set the customer "Birthday"', () => {
+        return promise
+          .then(() => client.waitAndSelectByValue(Customer.days_select, customerData.birthday.day))
+          .then(() => client.waitAndSelectByValue(Customer.month_select, customerData.birthday.month))
+          .then(() => client.waitAndSelectByValue(Customer.years_select, customerData.birthday.year));
+      });
+      test('should click on "Save" button', () => client.waitForExistAndClick(Customer.save_button));
+    }, 'order');
+  },
+  createCartRule: function (cartRuleData, promoCode) {
+    scenario('Create a "Cart Rule"', client => {
+      test('should click on "Add new voucher" button', () => client.waitForExistAndClick(CreateOrder.add_new_voucher_button));
+      test('should set the "Name" input" button', () => {
+        return promise
+          .then(() => client.switchToFrameById(1, 2000))
+          .then(() => client.waitAndSetValue(DiscountSubMenu.cartRules.name_input, cartRuleData.name));
+      });
+      test('should set the "Description" input', () => client.waitAndSetValue(DiscountSubMenu.cartRules.description_input, cartRuleData.description));
+      test('should click on "Generate" button', () => {
+        return promise
+          .then(() => client.waitForExistAndClick(DiscountSubMenu.cartRules.generate_button))
+          .then(() => client.getAttributeInVar(DiscountSubMenu.cartRules.code_input, 'value', promoCode));
+      });
+      test('should enable the "Highlight"', () => client.waitForExistAndClick(DiscountSubMenu.cartRules.highlight_enabled_button));
+      test('should disable the "Partial use"', () => client.waitForExistAndClick(DiscountSubMenu.cartRules.partial_use_disabled_button));
+      test('should click on "CONDITIONS" tab', () => client.waitForExistAndClick(DiscountSubMenu.cartRules.conditions_tab));
+      test('should set the "Total available" input', () => client.clearElementAndSetValue(DiscountSubMenu.cartRules.total_available_input, cartRuleData.total_available));
+      test('should set the "Total available for each user" input', () => client.clearElementAndSetValue(DiscountSubMenu.cartRules.total_available_for_each_user_input, cartRuleData.total_available_for_each_user));
+      test('should click on "ACTIONS" tab', () => client.waitForExistAndClick(DiscountSubMenu.cartRules.actions_tab));
+      test('should click on "' + cartRuleData.type + '" radio', () => client.waitForExistAndClick(DiscountSubMenu.cartRules.apply_discount_radio.replace("%T", cartRuleData.type), 2000));
+      test('should set the "reduction" ' + cartRuleData.type + ' value', () => client.waitAndSetValue(DiscountSubMenu.cartRules.reduction_input.replace("%T", cartRuleData.type), cartRuleData.reduction, 2000));
+      test('should click on "Save" button', () => client.waitForExistAndClick(DiscountSubMenu.cartRules.save_button, 2000));
+    }, 'order');
+  },
+  editDeliveryAddress: function (addressDataUpdated) {
+    scenario('Edit the delivery address', client => {
+      test('should clik on "Edit delivery address" button', () => client.waitForExistAndClick(CreateOrder.edit_delivery_address_button));
+      test('should set the "First name" input', () => {
+        return promise
+          .then(() => client.switchToFrameById(1, 2000))
+          .then(() => client.clearElementAndSetValue(Addresses.first_name_input, addressDataUpdated.first_name, 1000));
+      });
+      test('should set the "last name" input', () => client.clearElementAndSetValue(Addresses.last_name_input, addressDataUpdated.last_name, 1000))
+      test('should set the "Company', () => client.clearElementAndSetValue(Addresses.company, addressDataUpdated.company, 1000))
+      test('should click on "Save" button', () => client.waitForExistAndClick(Addresses.save_button));
+    }, 'order');
+  },
+  addNewDeliveryAddress: function (addressData) {
+    scenario('Add a new address', client => {
+      test('should clik on "Add a new address button', () => client.waitForExistAndClick(CreateOrder.add_new_address_button));
+      test('should set the "Address alis" input', () => {
+        return promise
+          .then(() => client.switchToFrameById(1, 2000))
+          .then(() => client.waitAndSetValue(Addresses.address_alias_input, addressData.address_alias));
+      });
+      test('should set the "First name" input', () => client.waitAndSetValue(Addresses.first_name_input, addressData.first_name));
+      test('should set the "Last name" input', () => client.waitAndSetValue(Addresses.last_name_input, addressData.last_name));
+      test('should set "Address" input', () => client.waitAndSetValue(Addresses.address_input, addressData.address));
+      test('should set "Postal code" input', () => client.waitAndSetValue(Addresses.zip_code_input, addressData.postal_code));
+      test('should set "City" input', () => client.waitAndSetValue(Addresses.city_input, addressData.city));
+      test('should set "Country" input', () => client.waitAndSelectByValue(Addresses.country_input, "8"));
+      test('should click on "Save" button', () => client.waitForExistAndClick(Addresses.save_button));
+    }, 'order');
+  },
+  createCartInBO: function (searchProduct) {
+    scenario('Create cart', client => {
+      test('should search a product', () => {
+        return promise
+          .then(() => client.waitAndSetValue(CreateOrder.product_search_input, searchProduct.name))
+          .then(() => client.waitForExistAndClick(CreateOrder.search_button, 1000));
+      });
+      test('should set the "Quantity" input', () => client.waitAndSetValue(CreateOrder.quantity_cart_input, searchProduct.quantity));
+      test('should click on "Add to cart" button', () => client.waitForExistAndClick(CreateOrder.add_to_cart_button, 1000));
+    }, 'order');
   }
 };

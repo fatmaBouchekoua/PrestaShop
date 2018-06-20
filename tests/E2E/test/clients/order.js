@@ -39,6 +39,18 @@ class Order extends CommonClient {
       .then((text) => expect(text).to.be.false);
   }
 
+  getOrdersNumber(selector) {
+    return this.client
+      .execute(function (selector) {
+        let count = document.getElementById(selector).getElementsByTagName("tbody")[0].children.length;
+        return count;
+      }, selector)
+      .then((count) => {
+        global.ordersNumber = count.value;
+      });
+  }
+
+
 }
 
 module.exports = Order;
