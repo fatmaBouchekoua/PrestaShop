@@ -82,6 +82,18 @@ module.exports = {
         }, 'product/product');
       }
 
+      if (productData.hasOwnProperty('supplier')) {
+        scenario('Add supplier', client => {
+          test('should click on "Options" button', () => client.scrollWaitForExistAndClick(AddProductPage.product_options_tab));
+          test('should select the supplier', () => client.scrollWaitForExistAndClick(AddProductPage.select_supplier.replace('%s', productData['supplier'].name + date_time).replace('%id', 1)));
+          test('should select the default supplier', () => {
+            return promise
+              .then(() => client.pause(3000))
+              .then(() => client.waitForExistAndClick(AddProductPage.select_supplier.replace('%s', productData['supplier'].name + date_time).replace('%id', 2)));
+          });
+        }, 'product/product');
+      }
+
       if (productData.hasOwnProperty('pricing')) {
         scenario('Edit product pricing', client => {
           test('should click on "Pricing"', () => client.scrollWaitForExistAndClick(AddProductPage.product_pricing_tab, 50));

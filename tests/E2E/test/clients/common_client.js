@@ -65,8 +65,9 @@ class CommonClient {
               element.scrollIntoView();
             }, selector)
             .waitForVisibleAndClick(selector);
-        }})
-      .then(()=> this.client.pause(4000));
+        }
+      })
+      .then(() => this.client.pause(4000));
   }
 
   closeBoarding(selector) {
@@ -204,7 +205,8 @@ class CommonClient {
           .pause(pause)
           .waitForExist(selector, 9000)
           .then(() => this.client.getText(selector))
-          .then((text) => expect(text).to.equal(textToCheckWith));
+          .then((text) =>
+            expect(text).to.equal(textToCheckWith));
         break;
       case "deepequal":
         return this.client
