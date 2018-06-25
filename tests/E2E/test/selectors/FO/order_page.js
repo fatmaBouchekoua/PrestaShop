@@ -26,10 +26,15 @@ module.exports = {
     order_shipping_prince_value: '//*[@id="order-items"]/div[@class="order-confirmation-table"]//tr[2]/td[2]',
     customer_name: '//*[@id="_desktop_user_info"]//a[@class="account"]/span',
     shipping_method: '//*[@id="order-details"]//li[3]',
-    success_product_add_to_cart_modal:'//*[@id="myModalLabel"]',
+    success_product_add_to_cart_modal: '//*[@id="myModalLabel"]',
     quantity_input: '//*[@id="main"]//div[contains(@class, "input-group")]//input[contains(@class, "js-cart-line-product-quantity")]',
     product_discount_details: '//*[@id="main"]//span[contains(@class, "discount")]',
     alert: '//*[@id="notifications"]//article[contains(@class, "alert-danger")]',
-    cart_product_discount:'//*[@id="main"]//span[contains(@class,"discount-percentage")] '
+    cart_product_discount: '//*[@id="main"]//span[contains(@class,"discount-percentage")] ',
+    block_cart: '//*[@id="blockcart-modal"]',
+    cart_container: '//*[@id="main"]//div[@class="card cart-container"]',
+    quantity_button: '//*[@id="main"]//button[contains(@class,"%WORD-product-quantity")]',
+    remove_button: '//*[@id="main"]//a[@class="remove-from-cart"]',
+    cart_item: '//*[@id="main"]//ul[@class="cart-items"]'
   }
 };

@@ -27,6 +27,8 @@ module.exports = {
     product_discounts_table: '//*[@id="add-to-cart-or-refresh"]//tbody/tr[%R]/td[%D]',
     product_summary: '(//*[@itemprop="description"]//p)[1]',
     product_description: '//*[@id="description"]',
-    product_detail_tab: '//*[@role="tablist"]//li[2]'
+    product_detail_tab: '//*[@role="tablist"]//li[2]',
+    cloths_category: '//*[@id="category-3"]',
+    second_product_clothes_category: '//*[@id="js-product-list"]//article[2]'
   }
 };
