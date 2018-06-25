@@ -203,6 +203,10 @@ module.exports = {
     created_category: '//*[@id="ps_categoryTags"]/span[2]/span',
     preview_link: '//a',
     continue_confirmation: '//*[@id="confirmation_modal"]//button[2]',
+    add_brand_button: '//*[@id="add_brand_button"]',
+    brand_select: '//*[@id="manufacturer-content"]/div/div[1]/fieldset/span/span[1]/span',
+    search_brand: '/html/body/span[4]/span/span[1]/input',
+    brand_click: '/html/body/span[4]/span/span[2]/ul/li'
   },
 
   ProductList: {
