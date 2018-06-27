@@ -14,6 +14,7 @@ module.exports = {
     pack_product_quantity: '//*[@id="add-to-cart-or-refresh"]//article[%P]//div[@class="pack-product-quantity"]',
     product_size: '//*[@id="group_1"]',
     product_color: '(//*[@id="group_3"]//span)[2]',
+    size_title: '//*[@id="group_1"]/option[@title="%W"]',
     see_all_products: '//*[@id="content"]//a[contains(@class, "all-product-link")]',
     first_product_all: '(//*[@id="js-product-list"]//article//a)[1]',
     pagination_next: '//*[@id="js-product-list"]//a[contains(@class, "next")]',
@@ -27,6 +28,13 @@ module.exports = {
     product_discounts_table: '//*[@id="add-to-cart-or-refresh"]//tbody/tr[%R]/td[%D]',
     product_summary: '(//*[@itemprop="description"]//p)[1]',
     product_description: '//*[@id="description"]',
-    product_detail_tab: '//*[@role="tablist"]//li[2]'
+    product_detail_tab: '//*[@role="tablist"]//li[2]',
+    product_variants: '//*[@id="add-to-cart-or-refresh"]/div[@class="product-variants"]',
+    search_input: '//*[@id="search_widget"]//input[@aria-label="Search"]',
+    search_button: '//*[@id="search_widget"]//button',
+    message_textarea_input: '//*[@id="main"]//li[contains(@class,"customization")]/textarea',
+    save_customization_button: '//*[@id="main"]//button[@name="submitCustomizedData"]',
+    cloths_category: '//*[@id="category-3"]',
+    second_product_clothes_category: '//*[@id="js-product-list"]//article[2]'
   }
 };
