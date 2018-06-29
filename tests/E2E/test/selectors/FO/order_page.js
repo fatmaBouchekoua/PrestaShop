@@ -36,5 +36,11 @@ module.exports = {
     product_unit_price: '//*[@id="main"]//li[%NUMBER]//div[@class="current-price"]/span',
     arrow_button_up: '//*[@id="main"]//li[%NUMBER]//button[contains(@class, "touchspin-up")]',
     product_current_price: '//*[@class="current-price"]/span[@itemprop="price"]'
+  },
+  CustomerAccount: {
+    your_account_page: '//*[@id="my-account"]',
+    addresses_button: '//*[@id="addresses-link"]',
+    address_content: 'content',
+    last_address: '(//*[@id="content"]//article[@class="address"]//address)[last()]'
   }
 };

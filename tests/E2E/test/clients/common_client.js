@@ -221,7 +221,34 @@ class CommonClient {
           .then(() => this.client.getText(selector))
           .then((text) => expect(text).to.not.equal(textToCheckWith));
         break;
+      case "notcontain":
+        return this.client
+          .pause(pause)
+          .waitForExist(selector, 9000)
+          .then(() => this.client.getText(selector))
+          .then((text) => expect(text).to.not.contain(textToCheckWith));
+        break;
     }
+  }
+
+  getNumber(selector, attribute, value, option = "") {
+    return this.client
+      .execute(function (selector, attribute, option) {
+        if (option === "children") {
+          return document.getElementById(selector).getElementsByTagName(attribute)[0].children.length;
+        } else {
+          return document.getElementById(selector).getElementsByTagName(attribute).length;
+        }
+      }, selector, attribute, option)
+      .then((count) => {
+        global.tab[value] = count.value;
+      });
+  }
+
+  clearElementAndSetValue(selector, value, pause = 0, timeout = 90000) {
+    return this.client
+      .pause(pause)
+      .clearElementAndSetValue(selector, value, timeout);
   }
 
   checkAttributeValue(selector, attribute, value, parameter = 'equal', pause = 0) {
@@ -286,7 +313,7 @@ class CommonClient {
    * @returns {*}
    */
   checkFile(folderPath, fileName, pause = 0) {
-    fs.stat(folderPath + fileName, function(err, stats) {
+    fs.stat(folderPath + fileName, function (err, stats) {
       err === null && stats.isFile() ? global.existingFile = true : global.existingFile = false;
     });
 
@@ -440,11 +467,11 @@ class CommonClient {
   }
 
   stringifyNumber(number) {
-    let special = ['zeroth','first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth'];
+    let special = ['zeroth', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth'];
     let deca = ['twent', 'thirt', 'fort', 'fift', 'sixt', 'sevent', 'eight', 'ninet'];
     if (number < 20) return special[number];
-    if (number%10 === 0) return deca[Math.floor(number/10)-2] + 'ieth';
-    return deca[Math.floor(number/10)-2] + 'y-' + special[number%10];
+    if (number % 10 === 0) return deca[Math.floor(number / 10) - 2] + 'ieth';
+    return deca[Math.floor(number / 10) - 2] + 'y-' + special[number % 10];
   }
 
   setAttributeById(selector) {

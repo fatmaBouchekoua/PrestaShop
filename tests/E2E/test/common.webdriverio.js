@@ -150,6 +150,12 @@ function initCommands(client) {
       .refresh();
   });
 
+  client.addCommand('clearElementAndSetValue', function (selector, value, timeout) {
+    return client
+      .clearElement(selector, timeout)
+      .waitAndSetValue(selector, value, timeout);
+  });
+
   client.addCommand('isOpen', function (selector) {
     return client
       .getAttribute(selector + '/..', 'class')

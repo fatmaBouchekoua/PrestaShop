@@ -9,13 +9,15 @@ module.exports = {
     radio_button_gender: '(//*[@id="customer-form"]//input[contains(@name,"id_gender")])[2]',
     account_link: '//*[@id="_desktop_user_info"]//a[@class="account"]',
     add_first_address: '#address-link',
+    add_new_address_button: '//*[@id="content"]//a[@data-link-action="add-address"]',
+    last_button: '(//*[@id="content"]//span[text()="%W"])[last()]',
     adr_address: '//*[@id="content"]//input[@name="address1"]',
     adr_postcode: '//*[@id="content"]//input[@name="postcode"]',
     adr_city: '//*[@id="content"]//input[@name="city"]',
     adr_save: '//*[@id="content"]//footer/button',
     success_alert: '[data-alert="success"]',
     adr_update: '[data-link-action="edit-address"]',
-    //------------------ connect with existing account from checkout ---------------//
+    //------------------ connect with existing account from checkout ----------------//
     sign_tab: '//*[@id="checkout-personal-information-step"]//a[contains(text(), "Sign in")]',
     signin_email_input: '//*[@id="login-form"]//input[@name="email"]',
     signin_password_input: '//*[@id="login-form"]//input[@name="password"]',
