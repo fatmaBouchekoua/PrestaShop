@@ -22,9 +22,9 @@ scenario('Navigate between the catalog pages in the back office', () => {
     test('should go to "Catalog" page', () => client.goToSubtabMenuPage(Menu.Sell.Catalog.catalog_menu, Menu.Sell.Catalog.products_submenu));
     test('should create products if there\'s less than 20 product in the list', () => {
       return promise
-        .then(() => client.getProductPageNumber('product_catalog_list'))
+        .then(() => client.getNumber('product_catalog_list', 'tbody', 'productsNumber', 'children'))
         .then(() => {
-          let productNumber = 20 - global.productsPageNumber;
+          let productNumber = 20 - global.tab['productsNumber'];
           if (productNumber !== 0) {
             for (let i = 0; i < productNumber + 1; i++) {
               commonProduct.createProduct(AddProductPage, productData);

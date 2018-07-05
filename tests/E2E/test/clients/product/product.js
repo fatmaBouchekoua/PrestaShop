@@ -155,19 +155,8 @@ class Product extends CommonClient {
           global.productsNumber = count.match(/[0-9]+/g)[2];
         });
     } else {
-      this.getProductPageNumber('product_catalog_list');
+      this.getNumber('product_catalog_list', 'tbody', 'productsNumber', 'children');
     }
-  }
-
-  getProductPageNumber(selector) {
-    return this.client
-      .execute(function (selector) {
-        let count = document.getElementById(selector).getElementsByTagName("tbody")[0].children.length;
-        return count;
-      }, selector)
-      .then((count) => {
-        global.productsPageNumber = count.value;
-      });
   }
 
   /**
@@ -221,7 +210,7 @@ class Product extends CommonClient {
         this.client
           .waitUntil(function () {
             sort_mode === 'ASC' ? this.sortByAsc(type) : this.sortByDesc(type);
-          }, 1000 * global.productsPageNumber);
+          }, 1000 * global.tab['productsNumber']);
       });
   }
 
@@ -236,7 +225,7 @@ class Product extends CommonClient {
         this.client
           .waitUntil(function () {
             expect(productsTable).to.deep.equal(productsSortedTable);
-          }, 1000 * global.productsPageNumber);
+          }, 1000 * global.tab['productsNumber']);
       });
   }
 

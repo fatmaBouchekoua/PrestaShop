@@ -4,7 +4,7 @@ const {AccessPageBO} = require('../../../selectors/BO/access_page');
 const {productPage} = require('../../../selectors/FO/product_page');
 const {CheckoutOrderPage} = require('../../../selectors/FO/order_page');
 const {OrderPage} = require('../../../selectors/BO/order');
-const {ShoppingCart} = require('../../../selectors/BO/order');
+const {ShoppingCarts} = require('../../../selectors/BO/order');
 const {accountPage} = require('../../../selectors/FO/add_account_page');
 let promise = Promise.resolve();
 
@@ -49,15 +49,15 @@ scenario('Shopping carts view', () => {
     }, 'order');
     scenario('View the shopping cart', client => {
       test('should go to "Shopping cart" page', () => client.goToSubtabMenuPage(Menu.Sell.Orders.orders_menu, Menu.Sell.Orders.shopping_carts_submenu));
-      test('should check that the first "Order ID" is equal to "Non ordered"', () => client.checkTextValue(ShoppingCart.check_first_order_id, 'Non ordered'));
-      test('should check the customer', () => client.checkTextValue(ShoppingCart.check_order_customer, 'J. DOE'));
-      test('should click on "View" button', () => client.waitForExistAndClick(ShoppingCart.view_order_button.replace('%NUMBER', 9)));
-      test('should check the "Total Cart"', () => client.checkTextValue(ShoppingCart.total_cart, global.tab["total_cart"]));
-      test('should check the "Customer name"', () => client.checkTextValue(ShoppingCart.customer_name.replace('%NAME', 'John DOE'), global.tab["customer_name"]));
+      test('should check that the first "Order ID" is equal to "Non ordered"', () => client.checkTextValue(ShoppingCarts.check_first_order_id, 'Non ordered'));
+      test('should check the customer', () => client.checkTextValue(ShoppingCarts.check_order_customer, 'J. DOE'));
+      test('should click on "View" button', () => client.waitForExistAndClick(ShoppingCarts.view_order_button.replace('%NUMBER', 9)));
+      test('should check the "Total Cart"', () => client.checkTextValue(ShoppingCarts.total_cart, global.tab["total_cart"]));
+      test('should check the "Customer name"', () => client.checkTextValue(ShoppingCarts.customer_name.replace('%NAME', 'John DOE'), global.tab["customer_name"]));
       test('should check the "First product name"', () => client.checkTextValue(OrderPage.product_name.replace('%NUMBER', 1), global.tab["first_product_name"]));
       test('should check the "Second product name"', () => client.checkTextValue(OrderPage.product_name.replace('%NUMBER', 2), global.tab["second_product_name"]));
-      test('should check the "First product unit price"', () => client.checkTextValue(ShoppingCart.product_unit_price.replace('%NUMBER', 1), global.tab["first_product_unit_price"]));
-      test('should check the "Second product unit price"', () => client.checkTextValue(ShoppingCart.product_unit_price.replace('%NUMBER', 2), global.tab["second_product_unit_price"]));
+      test('should check the "First product unit price"', () => client.checkTextValue(ShoppingCarts.product_unit_price.replace('%NUMBER', 1), global.tab["first_product_unit_price"]));
+      test('should check the "Second product unit price"', () => client.checkTextValue(ShoppingCarts.product_unit_price.replace('%NUMBER', 2), global.tab["second_product_unit_price"]));
     }, 'order');
   }, 'order');
   scenario('Increase the quantity of the first product', client => {
@@ -71,7 +71,7 @@ scenario('Shopping carts view', () => {
     }, 'order');
     scenario('Check the quantity of the first product', client => {
       test('should go back to the Back office', () => client.switchWindow(0));
-      test('should check the first product quantity', () => client.checkTextValue(ShoppingCart.quantity_product.replace('%NUMBER', 1), global.tab["quantity"]));
+      test('should check the first product quantity', () => client.checkTextValue(ShoppingCarts.quantity_product.replace('%NUMBER', 1), global.tab["quantity"]));
     }, 'order');
   }, 'order');
   scenario('Create order in the Front Office', client => {
@@ -98,18 +98,18 @@ scenario('Shopping carts view', () => {
     test('should go back to the Back office', () => client.switchWindow(0));
     test('should check the view informations', () => {
       return promise
-        .then(() => client.getTextInVar(ShoppingCart.total_cart_summary, "total_cart_summary"))
-        .then(() => client.getTextInVar(ShoppingCart.product_unit_price.replace('%NUMBER', 1), "unit_price_first_product"))
-        .then(() => client.getTextInVar(ShoppingCart.product_unit_price.replace('%NUMBER', 2), "unit_price_second_product"))
-        .then(() => client.getTextInVar(ShoppingCart.quantity_product.replace('%NUMBER', 1), "quantity_first_product"))
-        .then(() => client.getTextInVar(ShoppingCart.quantity_product.replace('%NUMBER', 2), "quantity_second_product"))
-        .then(() => client.getTextInVar(ShoppingCart.stock_product.replace('%NUMBER', 1), "stock_first_product"))
-        .then(() => client.getTextInVar(ShoppingCart.stock_product.replace('%NUMBER', 2), "stock_second_product"))
-        .then(() => client.getTextInVar(ShoppingCart.total_product.replace('%NUMBER', 1), "total_first_product_price"))
-        .then(() => client.getTextInVar(ShoppingCart.total_product.replace('%NUMBER', 2), "total_second_product_price"));
+        .then(() => client.getTextInVar(ShoppingCarts.total_cart_summary, "total_cart_summary"))
+        .then(() => client.getTextInVar(ShoppingCarts.product_unit_price.replace('%NUMBER', 1), "unit_price_first_product"))
+        .then(() => client.getTextInVar(ShoppingCarts.product_unit_price.replace('%NUMBER', 2), "unit_price_second_product"))
+        .then(() => client.getTextInVar(ShoppingCarts.quantity_product.replace('%NUMBER', 1), "quantity_first_product"))
+        .then(() => client.getTextInVar(ShoppingCarts.quantity_product.replace('%NUMBER', 2), "quantity_second_product"))
+        .then(() => client.getTextInVar(ShoppingCarts.stock_product.replace('%NUMBER', 1), "stock_first_product"))
+        .then(() => client.getTextInVar(ShoppingCarts.stock_product.replace('%NUMBER', 2), "stock_second_product"))
+        .then(() => client.getTextInVar(ShoppingCarts.total_product.replace('%NUMBER', 1), "total_first_product_price"))
+        .then(() => client.getTextInVar(ShoppingCarts.total_product.replace('%NUMBER', 2), "total_second_product_price"));
     });
     scenario('Check order informations', client => {
-      test('should go to the order page', () => client.waitForExistAndClick(ShoppingCart.order_page.replace("%s", 'order')));
+      test('should go to the order page', () => client.waitForExistAndClick(ShoppingCarts.order_page.replace("%s", 'order')));
       test('should check the first product base price', () => client.checkTextValue(OrderPage.product_basic_price_TTC.replace('%NUMBER', 1), global.tab["unit_price_first_product"]));
       test('should check the second product base price', () => client.checkTextValue(OrderPage.product_basic_price_TTC.replace('%NUMBER', 2), global.tab["unit_price_second_product"]));
       test('should check the first product quantity', () => client.checkTextValue(OrderPage.order_quantity.replace('%NUMBER', 1), global.tab["quantity_first_product"]));

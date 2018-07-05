@@ -147,7 +147,7 @@ module.exports = {
   },
   getShoppingCartsInfo: function () {
     scenario('Get all informations about the ' + global.shoppingCartsNumber + ' shopping carts', client => {
-      for (let i = 1; i <= global.shoppingCartsNumber; i++) {
+      for (let i = 1; i <= global.tab['shoppingCartsNumber']; i++) {
         test('Get the information of the ' + client.stringifyNumber(i) + ' shopping cart', () => {
           return promise
             .then(() => client.getTextInVar(ShoppingCarts.id.replace('%NUMBER', i), "id"))

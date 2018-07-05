@@ -16,7 +16,7 @@ scenario('Export shopping carts in the Back Office', () => {
         .then(() => client.waitAndSetValue(ShoppingCarts.search_input.replace('%searchParam', 'c!lastname'), 'DOE'))
         .then(() => client.waitAndSetValue(ShoppingCarts.search_input.replace('%searchParam', 'ca!name'), 'My carrier'))
         .then(() => client.waitForExistAndClick(ShoppingCarts.search_button))
-        .then(() => client.getShoppingCartNumber(ShoppingCarts.id_shopping_carts))
+        .then(() => client.getNumber(ShoppingCarts.id_shopping_carts, 'tbody', 'shoppingCartsNumber', 'children'))
         .then(() => orderCommonScenarios.getShoppingCartsInfo())
         .then(() => orderCommonScenarios.checkExportedFile());
     });

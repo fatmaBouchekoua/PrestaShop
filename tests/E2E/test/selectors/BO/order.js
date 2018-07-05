@@ -50,7 +50,7 @@ module.exports = {
     product_select: '//*[@id="id_product"]'
   },
 
-  ShoppingCart: {
+  ShoppingCarts: {
     check_first_order_id: '//*[@id="table-cart"]//tr[1]/td[3]/span',
     check_order_customer: '//*[@id="table-cart"]//tr[1]/td[4]',
     view_order_button: '//*[@id="table-cart"]//td[%NUMBER]//a[@title="View"]',

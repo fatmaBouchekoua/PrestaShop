@@ -51,17 +51,6 @@ class Order extends CommonClient {
       });
   }
 
-  getShoppingCartNumber(selector) {
-    return this.client
-      .execute(function (selector) {
-        let count = document.getElementById(selector).getElementsByTagName("tbody")[0].children.length;
-        return count;
-      }, selector)
-      .then((count) => {
-        global.shoppingCartsNumber = count.value;
-      });
-  }
-
   readFile(folderPath, fileName, pause = 0) {
     fs.readFile(folderPath + fileName, {encoding: 'utf-8'}, function (err, data) {
       global.lineFile = data.split("\n");
