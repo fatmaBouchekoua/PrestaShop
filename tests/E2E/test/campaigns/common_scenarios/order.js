@@ -176,5 +176,17 @@ module.exports = {
       test('should compare both informations', () => client.checkExportedFileInfo(1000));
       test('should reset filter', () => client.waitForExistAndClick(ShoppingCarts.reset_button));
     }, 'order', true);
+  },
+  initCheckout: function () {
+    scenario('Add some product to cart"', client => {
+      test('should add some product to cart"', () => {
+        return promise
+          .then(() => client.waitForExistAndClick(productPage.cloths_category))
+          .then(() => client.waitForExistAndClick(productPage.second_product_clothes_category))
+          .then(() => client.waitForExistAndClick(CheckoutOrderPage.add_to_cart_button, 2000))
+          .then(() => client.waitForVisibleAndClick(CheckoutOrderPage.proceed_to_checkout_modal_button))
+          .then(() => client.waitForExistAndClick(CheckoutOrderPage.proceed_to_checkout_button));
+      });
+    }, 'order');
   }
 };
