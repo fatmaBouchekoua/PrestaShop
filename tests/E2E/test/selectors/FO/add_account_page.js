@@ -17,6 +17,7 @@ module.exports = {
     adr_update: '[data-link-action="edit-address"]',
     //------------------ connect with existing account from checkout ---------------//
     sign_tab: '//*[@id="checkout-personal-information-step"]//a[contains(text(), "Sign in")]',
+    login_form: '//*[@id="login-form"]',
     signin_email_input: '//*[@id="login-form"]//input[@name="email"]',
     signin_password_input: '//*[@id="login-form"]//input[@name="password"]',
     continue_button: '//*[@id="login-form"]//button[contains(@class, "continue")]',

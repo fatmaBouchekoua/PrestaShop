@@ -36,5 +36,11 @@ module.exports = {
     product_unit_price: '//*[@id="main"]//li[%NUMBER]//div[@class="current-price"]/span',
     arrow_button_up: '//*[@id="main"]//li[%NUMBER]//button[contains(@class, "touchspin-up")]',
     product_current_price: '//*[@class="current-price"]/span[@itemprop="price"]'
+  },
+  GuestOrderTracking: {
+    guest_order_tracking_form: '//*[@id="guestOrderTrackingForm"]',
+    order_reference_input: '//*[@id="guestOrderTrackingForm"]//input[@name="order_reference"]',
+    email_input: '//*[@id="guestOrderTrackingForm"]//input[@name="email"]',
+    send_button: '//*[@id="guestOrderTrackingForm"]//button'
   }
 };
