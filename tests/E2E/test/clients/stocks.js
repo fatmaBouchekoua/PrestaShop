@@ -53,6 +53,16 @@ class ModifyQuantity extends CommonClient {
       return promise.then(() => client.checkMovement(Movement, 2, "15", "+", "Employee Edition"));
     }
   }
+
+  getNumberOfProducts(selector) {
+    return this.client
+      .execute(function (selector) {
+        return document.getElementsByClassName(selector)[0].getElementsByTagName('tbody')[0].children.length;
+      }, selector)
+      .then((count) => {
+        global.numbersOfProducts = count.value;
+      });
+  }
 }
 
 module.exports = ModifyQuantity;

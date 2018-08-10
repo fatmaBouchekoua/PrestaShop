@@ -124,7 +124,7 @@ module.exports = {
           test('should search for the category', () => client.waitAndSetValue(AddProductPage.search_categories, productData.categories['1']['name'] + date_time));
           test('should select the category', () => client.waitForVisibleAndClick(AddProductPage.list_categories));
           test('should open all categories', () => client.openAllCategory());
-          if(Object.keys(productData.categories).length > 1) {
+          if (Object.keys(productData.categories).length > 1) {
             Object.keys(productData.categories).forEach(function (key) {
               if (productData.categories[key]["main_category"] && productData.categories[key]["name"] !== 'home') {
                 test('should choose the created category as default', () => {
@@ -137,6 +137,18 @@ module.exports = {
           } else {
             test('should delete the home category', () => client.waitForExistAndClick(AddProductPage.default_category));
           }
+        }, 'product/product');
+      }
+
+      if (productData.hasOwnProperty('supplier')) {
+        scenario('Add supplier', client => {
+          test('should click on "Options" button', () => client.scrollWaitForExistAndClick(AddProductPage.product_options_tab));
+          test('should select the supplier', () => client.scrollWaitForExistAndClick(AddProductPage.select_supplier.replace('%s', productData['supplier'].name + date_time).replace('%id', 1)));
+          test('should select the default supplier', () => {
+            return promise
+              .then(() => client.pause(3000))
+              .then(() => client.waitForExistAndClick(AddProductPage.select_supplier.replace('%s', productData['supplier'].name + date_time).replace('%id', 2)));
+          });
         }, 'product/product');
       }
 

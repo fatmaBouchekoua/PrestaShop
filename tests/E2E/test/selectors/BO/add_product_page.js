@@ -195,6 +195,7 @@ module.exports = {
     success_panel: '//div[contains(@class, "alert-success")]//p',
     delete_button: '//*[@id="product_form_delete_btn"]',
     delete_confirmation_button: '//*[@id="confirmation_modal"]//button[contains(text(), "%BUTTON")]',
+    select_supplier: '(//label[contains(text(), "%s")])[%id]',
     symfony_toolbar: '//*[contains (@id, "sfToolbarMainContent")]/a',
     summary_tinymce_buttons: '//*[@id="description_short"]//div[contains(@class, "mce-toolbar-grp")]',
     combination_first_table: '//*[@id="accordion_combinations"]',
