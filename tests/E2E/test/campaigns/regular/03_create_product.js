@@ -14,7 +14,7 @@ let productData = {
   reference: 'robe'
 };
 
-scenario('Create "Product"', () => {
+/*scenario('Create "Product"', () => {
   scenario('Login in the Back Office', client => {
     test('should open the browser', () => client.open());
     test('should login successfully in the Back Office', () => client.signInBO(AccessPageBO));
@@ -24,7 +24,7 @@ scenario('Create "Product"', () => {
   scenario('Logout from the Back Office', client => {
     test('should logout successfully from the Back Office', () => client.signOutBO());
   }, 'common_client');
-}, 'common_client', true);
+}, 'common_client', true);*/
 
 scenario('Check the created product in the Front Office', () => {
   scenario('Login in the Front Office', client => {
@@ -33,7 +33,7 @@ scenario('Check the created product in the Front Office', () => {
   }, 'product/product');
   scenario('Check that the created product is well displayed in the Front Office', client => {
     test('should set the shop language to "English"', () => client.changeLanguage());
-    test('should search for the product', () => client.searchByValue(SearchProductPage.search_input, SearchProductPage.search_button, productData.name + date_time));
+    /*test('should search for the product', () => client.searchByValue(SearchProductPage.search_input, SearchProductPage.search_button, productData.name + date_time));
     test('should go to the product page', () => client.waitForExistAndClick(SearchProductPage.product_result_name));
     test('should check that the product name is equal to "' + (productData.name + date_time).toUpperCase() + '"', () => client.checkTextValue(productPage.product_name, (productData.name + date_time).toUpperCase()));
     test('should check that the product price is equal to "€6.00"', () => client.checkTextValue(productPage.product_price, '€6.00'));
@@ -42,7 +42,7 @@ scenario('Check the created product in the Front Office', () => {
         .then(() => client.scrollTo(productPage.product_reference))
         .then(() => client.checkTextValue(productPage.product_reference, productData.reference))
     });
-    test('should check that the product quantity is equal to "10"', () => client.checkAttributeValue(productPage.product_quantity, 'data-stock', productData.quantity));
+    test('should check that the product quantity is equal to "10"', () => client.checkAttributeValue(productPage.product_quantity, 'data-stock', productData.quantity));*/
   }, 'product/product');
   scenario('Logout from the Front Office', client => {
     test('should logout successfully from the Front Office', () => {

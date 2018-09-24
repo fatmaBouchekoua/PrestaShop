@@ -1,3 +1,4 @@
+/*
 const {AccessPageFO} = require('../../selectors/FO/access_page');
 const {OrderPage} = require('../../selectors/BO/order');
 const {AccessPageBO} = require('../../selectors/BO/access_page');
@@ -75,3 +76,4 @@ scenario('Check the created order in the Back Office', () => {
     test('should check shipping method ', () => client.checkTextValue(OrderPage.shipping_method, global.tab["method"].split('\n')[0], 'contain'));
   }, "order");
 }, 'order', true);
+*/
