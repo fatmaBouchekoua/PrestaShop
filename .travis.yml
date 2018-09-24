@@ -18,15 +18,15 @@ sudo: required
 dist: trusty
 
 php:
-  - 5.6
+  #- 5.6
   - 7.2
 
 env:
   global:
     - SYMFONY_DEPRECATIONS_HELPER=disabled
   matrix:
-    - PRESTASHOP_TEST_TYPE=lint
-    - PRESTASHOP_TEST_TYPE=unit
+    #- PRESTASHOP_TEST_TYPE=lint
+   # - PRESTASHOP_TEST_TYPE=unit
     - PRESTASHOP_TEST_TYPE=e2e
 
 matrix:
