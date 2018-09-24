@@ -106,9 +106,10 @@ class CommonClient {
       .isVisible(languageFO.language_option)
       .then((isVisible) => {
         console.log('1:' + isVisible)
-        //expect(isVisible, "This language is not existing").to.be.true;
         if (isVisible) {
           this.client.waitForVisibleAndClick(languageFO.language_option);
+        } else {
+          expect(isVisible, "This language is not existing").to.be.true;
         }
       });
   }
