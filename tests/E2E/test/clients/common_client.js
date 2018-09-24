@@ -102,12 +102,11 @@ class CommonClient {
   changeLanguage(language = 'en') {
     return this.client
       .waitForExistAndClick(languageFO.language_selector, 2000)
-      .pause(4000)
-      .isVisible(languageFO.language_option)
+      .pause(2000)
+      .isVisible(languageFO.language_option.replace('%LANG', language))
       .then((isVisible) => {
-        console.log('1:' + isVisible)
         if (isVisible) {
-          this.client.waitForVisibleAndClick(languageFO.language_option);
+          this.client.waitForVisibleAndClick(languageFO.language_option.replace('%LANG', language));
         } else {
           expect(isVisible, "This language is not existing").to.be.true;
         }

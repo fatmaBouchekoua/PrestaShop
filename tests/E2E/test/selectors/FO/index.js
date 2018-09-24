@@ -1,7 +1,7 @@
 module.exports = Object.assign({
     languageFO: {
       language_selector: '//*[@id="_desktop_language_selector"]/div/div/button',
-      language_option: '//*[@id="_desktop_language_selector"]//a[contains(@href, "en")] | //*[@id="_desktop_language_selector"]//a[contains(@href, "id_lang=1")]',
+      language_option: '//*[@id="_desktop_language_selector"]//a[contains(@href, "%LANG")]',
       selected_language_button: '//*[@id="_desktop_language_selector"]//span[@class="expand-more"]'
     }
   },
