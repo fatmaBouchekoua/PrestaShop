@@ -103,10 +103,10 @@ class CommonClient {
     return this.client
       .waitForExistAndClick(languageFO.language_selector, 2000)
       .pause(2000)
-      .isVisible(languageFO.language_option.replace('%LANG', language))
+      .isVisible(languageFO.language_option)
       .then((isVisible) => {
         if (isVisible) {
-          this.client.waitForVisibleAndClick(languageFO.language_option.replace('%LANG', language));
+          this.client.waitForVisibleAndClick(languageFO.language_option);
         } else {
           expect(isVisible, "This language is not existing").to.be.true;
         }
