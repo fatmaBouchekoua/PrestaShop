@@ -89,10 +89,10 @@ scenario('Catalog bulk action', () => {
       test('should click on the "Delete selection" button', () => client.waitForExistAndClick(CatalogPage.action_button.replace("%ID", 4)));
       test('should click on the "Close" button', () => client.waitForVisibleAndClick(CatalogPage.close_delete_modal));
       scenario('Check that duplicate products are not deleted', client => {
-        test('should set the search input to "copy" to search for the duplicated products', () => client.waitAndSetValue(CatalogPage.name_search_input, "copy"));
+        test('should set the search input to "copy" to search for the duplicated products', () => client.waitAndSetValue(CatalogPage.name_search_input, "copy",2000));
         test('should click on the "ENTER" key', () => client.keys('Enter'));
-        test('should check the existence of the list of products', () => client.isNotExisting(CatalogPage.search_result_message));
-        test('should click on "Reset" button', () => client.waitForVisibleAndClick(CatalogPage.reset_button));
+        test('should check the existence of the list of products', () => client.isNotExisting(CatalogPage.search_result_message,2000));
+        test('should click on "Reset" button', () => client.waitForVisibleAndClick(CatalogPage.reset_button,2000));
       }, 'catalogbulkaction');
     }, 'catalogbulkaction');
 

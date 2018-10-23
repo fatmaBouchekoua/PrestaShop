@@ -38,7 +38,7 @@ scenario('Edit a translation', () => {
   }, 'common_client');
   scenario('Check the change of "Sign out" to "Sign out English" ', client => {
     test('should set the shop language to "English"', () => client.changeLanguage());
-    test('should check the "Sign out" button text is equal to "Sign out English"', () => client.checkTextValue(Translations.sign_out_FO_text, 'Sign out English', "contain"));
+    test('should check the "Sign out" button text is equal to "Sign out English"', () => client.checkTextValue(Translations.sign_out_FO_text, 'Sign out English', "contain",2000));
   }, 'common_client');
   scenario('Logout from the Front Office', client => {
     test('should logout successfully from the Front Office', () => client.signOutFO(AccessPageFO));
